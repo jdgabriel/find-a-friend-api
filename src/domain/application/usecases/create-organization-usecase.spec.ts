@@ -27,6 +27,9 @@ describe('Create organization use case', () => {
 
     expect(result.isRight()).toBe(true)
     expect(organizationRepository.items[0].email).toEqual('jhon@doe.com')
+    expect(organizationRepository.items[0].id).toEqual(
+      addressRepository.items[0].ownerId,
+    )
     expect(addressRepository.items[0]).toMatchObject({
       phoneNumber: '5531999999999',
       postalNumber: '12345678',

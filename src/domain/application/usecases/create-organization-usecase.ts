@@ -2,6 +2,7 @@ import { DuplicateResource } from '@/core/errors/duplicate-resouce-error'
 import { Either, left, right } from '@/core/errors/either'
 import { Address } from '@/domain/enterprise/entities/address'
 import { Organization } from '@/domain/enterprise/entities/organization'
+import { Password } from '@/domain/enterprise/entities/password'
 import { OrganizationRepository } from '../repositories/organization-repository'
 
 export interface CreateOrganizationUseCaseRequest {
@@ -31,7 +32,10 @@ export class CreateOrganizationUseCase {
       return left(new DuplicateResource())
     }
 
-    const organization = Organization.create(props)
+    const organization = Organization.create({
+      ...props,
+      password: Password.create(props.password),
+    })
 
     const address = Address.create({
       ownerId: organization.id,
@@ -39,6 +43,7 @@ export class CreateOrganizationUseCase {
       postalNumber: props.postalNumber,
       street: props.street,
     })
+
     organization.address = address
 
     await this.organizationRepository.create(organization)
