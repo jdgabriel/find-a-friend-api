@@ -4,10 +4,11 @@ import { Optional } from '@/core/types/optional'
 import { Address } from './address'
 import { Password } from './password'
 
-interface OrganizationProps {
+export interface OrganizationProps {
   name: string
   email: string
   address: Address | null
+  phoneNumber: string
   password: Password
   createdAt: Date
   updatedAt?: Date
@@ -36,6 +37,14 @@ export class Organization extends AggregateRoot<OrganizationProps> {
 
   set address(address: Address) {
     this.props.address = address
+  }
+
+  get phoneNumber() {
+    return this.props.phoneNumber
+  }
+
+  set phoneNumber(phoneNumber: string) {
+    this.props.phoneNumber = phoneNumber
   }
 
   get createdAt() {

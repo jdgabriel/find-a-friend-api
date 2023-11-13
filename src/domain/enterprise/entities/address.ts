@@ -6,7 +6,7 @@ interface AddressProps {
   ownerId: UniqueEntityID
   street: string
   postalNumber: string
-  phoneNumber: string
+  city: string
   createdAt: Date
   updatedAt?: Date
 }
@@ -20,12 +20,12 @@ export class Address extends AggregateRoot<AddressProps> {
     return this.props.street
   }
 
-  get postalNumber() {
-    return this.props.postalNumber
+  get city() {
+    return this.props.city
   }
 
-  get phoneNumber() {
-    return this.props.phoneNumber
+  get postalNumber() {
+    return this.props.postalNumber
   }
 
   get createdAt() {

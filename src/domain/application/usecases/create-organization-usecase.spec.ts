@@ -20,6 +20,7 @@ describe('Create organization use case', () => {
       email: 'jhon@doe.com',
       name: 'Org name',
       phoneNumber: '5531999999999',
+      city: 'city_name',
       postalNumber: '12345678',
       street: 'Street name',
       password: '1234',
@@ -31,7 +32,7 @@ describe('Create organization use case', () => {
       addressRepository.items[0].ownerId,
     )
     expect(addressRepository.items[0]).toMatchObject({
-      phoneNumber: '5531999999999',
+      city: 'city_name',
       postalNumber: '12345678',
     })
   })

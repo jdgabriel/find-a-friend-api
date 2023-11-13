@@ -1,11 +1,14 @@
 import { AggregateRoot } from '@/core/entities/aggregate-root'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Optional } from '@/core/types/optional'
+import { Address } from '@/domain/enterprise/entities/address'
 import { PetAttachmentsList } from './pet-attachment-list'
 
 export interface PetProps {
+  orgId: UniqueEntityID
   name: string
   bio: string
+  address: Address | null
   age: 'pup' | 'adult'
   size: 'small' | 'medium' | 'big'
   energyLevel: 'low' | 'medium' | 'high'
@@ -17,12 +20,24 @@ export interface PetProps {
 }
 
 export class Pet extends AggregateRoot<PetProps> {
+  get orgId() {
+    return this.props.orgId
+  }
+
   get name() {
     return this.props.name
   }
 
   get bio() {
     return this.props.bio
+  }
+
+  get address(): Address | null {
+    return this.props.address
+  }
+
+  set address(address: Address) {
+    this.props.address = address
   }
 
   get age() {
@@ -62,13 +77,14 @@ export class Pet extends AggregateRoot<PetProps> {
   }
 
   static create(
-    props: Optional<PetProps, 'createdAt' | 'attachments'>,
+    props: Optional<PetProps, 'createdAt' | 'attachments' | 'address'>,
     id?: UniqueEntityID,
   ) {
     const pet = new Pet(
       {
         ...props,
         attachments: props.attachments ?? new PetAttachmentsList(),
+        address: props.address ?? null,
         createdAt: props.createdAt ?? new Date(),
       },
       id,

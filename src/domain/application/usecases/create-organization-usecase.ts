@@ -10,6 +10,7 @@ export interface CreateOrganizationUseCaseRequest {
   email: string
   street: string
   postalNumber: string
+  city: string
   phoneNumber: string
   password: string
 }
@@ -39,8 +40,8 @@ export class CreateOrganizationUseCase {
 
     const address = Address.create({
       ownerId: organization.id,
-      phoneNumber: props.phoneNumber,
       postalNumber: props.postalNumber,
+      city: props.city,
       street: props.street,
     })
 
