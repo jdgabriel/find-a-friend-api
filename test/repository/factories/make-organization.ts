@@ -1,9 +1,9 @@
+import { Hash } from '@/core/entities/hash'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import {
   Organization,
   OrganizationProps,
 } from '@/domain/enterprise/entities/organization'
-import { Password } from '@/domain/enterprise/entities/password'
 import { faker } from '@faker-js/faker'
 
 export function makeOrganization(
@@ -14,7 +14,7 @@ export function makeOrganization(
     {
       name: faker.company.name(),
       email: faker.internet.email(),
-      password: Password.create(String(faker.number.int({ min: 6, max: 16 }))),
+      password: Hash.create(String(faker.number.int({ min: 6, max: 16 }))),
       phoneNumber: faker.phone.number(),
       ...override,
     },

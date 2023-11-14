@@ -2,14 +2,13 @@ import { AggregateRoot } from '@/core/entities/aggregate-root'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Optional } from '@/core/types/optional'
 import { Address } from './address'
-import { Password } from './password'
 
 export interface OrganizationProps {
   name: string
   email: string
   address: Address | null
   phoneNumber: string
-  password: Password
+  password: string
   createdAt: Date
   updatedAt?: Date
 }
@@ -28,7 +27,11 @@ export class Organization extends AggregateRoot<OrganizationProps> {
   }
 
   set password(password: string) {
-    this.props.password = Password.create(password)
+    this.props.password = password
+  }
+
+  get password() {
+    return this.props.password
   }
 
   get address(): Address | null {
