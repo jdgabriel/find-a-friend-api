@@ -2,6 +2,7 @@ import { PaginationParams } from '@/core/repositories/pagination-params'
 import { Pet } from '../../enterprise/entities/pet/pet'
 
 export interface PetFilters {
+  city: string
   age?: 'pup' | 'adult'
   size?: 'small' | 'medium' | 'big'
   energyLevel?: 'low' | 'medium' | 'high'

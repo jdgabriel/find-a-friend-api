@@ -4,7 +4,7 @@ import { Pet } from '@/domain/enterprise/entities/pet/pet'
 import { PetFilters, PetRepository } from '../repositories/pet-repository'
 
 interface FetchPetsUseCaseRequest {
-  filters?: PetFilters
+  filters: PetFilters
   pageInfo: PaginationParams
 }
 
@@ -19,7 +19,7 @@ export class FetchPetsUseCase {
   constructor(private petRepository: PetRepository) {}
 
   async execute({
-    filters = {},
+    filters,
     pageInfo,
   }: FetchPetsUseCaseRequest): Promise<FetchPetsUseCaseResponse> {
     const pets = await this.petRepository.findMany(filters, pageInfo)

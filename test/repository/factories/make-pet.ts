@@ -1,15 +1,14 @@
+import { faker } from '@faker-js/faker'
+
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Pet, PetProps } from '@/domain/enterprise/entities/pet/pet'
 
-interface MakeUseCaseProps extends PetProps {
-  picturesIds: Array<string>
-}
-
 export function makePet(override: Partial<PetProps> = {}, id?: UniqueEntityID) {
-  return Pet.create(
+  const pet = Pet.create(
     {
-      name: 'Pet name',
-      bio: 'Bio content',
+      orgId: new UniqueEntityID('organization-id-1'),
+      name: faker.animal.cat(),
+      bio: faker.lorem.sentence(10),
       age: 'pup',
       energyLevel: 'low',
       indecencyLevel: 'low',
@@ -19,4 +18,6 @@ export function makePet(override: Partial<PetProps> = {}, id?: UniqueEntityID) {
     },
     id,
   )
+
+  return pet
 }

@@ -17,8 +17,10 @@ export class InMemoryPetRepository implements PetRepository {
     return pet
   }
 
-  async findMany(filters: PetFilters, { page }: PaginationParams) {
-    let pets: Array<Pet> = this.items
+  async findMany({ city, ...filters }: PetFilters, { page }: PaginationParams) {
+    let pets: Array<Pet> = this.items.filter(
+      (item) => item.address?.city === city,
+    )
 
     const filterKeys = Object.keys(filters) as (keyof typeof filters)[]
     filterKeys.forEach((filterOption) => {

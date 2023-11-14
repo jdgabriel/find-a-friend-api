@@ -1,10 +1,10 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { Address } from '@/domain/enterprise/entities/address'
 import {
   Organization,
   OrganizationProps,
 } from '@/domain/enterprise/entities/organization'
 import { Password } from '@/domain/enterprise/entities/password'
+import { faker } from '@faker-js/faker'
 
 export function makeOrganization(
   override: Partial<OrganizationProps> = {},
@@ -12,21 +12,14 @@ export function makeOrganization(
 ) {
   const organization = Organization.create(
     {
-      name: 'Organization name',
-      email: 'organization@email.com',
-      password: Password.create('123123'),
-      phoneNumber: '9999999999',
+      name: faker.company.name(),
+      email: faker.internet.email(),
+      password: Password.create(String(faker.number.int({ min: 6, max: 16 }))),
+      phoneNumber: faker.phone.number(),
       ...override,
     },
     id,
   )
-
-  organization.address = Address.create({
-    city: 'city',
-    postalNumber: '123321',
-    street: 'street',
-    ownerId: organization.id,
-  })
 
   return organization
 }
